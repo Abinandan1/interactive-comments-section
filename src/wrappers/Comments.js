@@ -7,12 +7,12 @@ export const Wrapper = styled.section`
     padding: 1rem;
   }
   .replies-container {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 1fr;
   }
   hr {
     margin-right: 1rem;
-    width: 10px;
+    width: 2px;
     border: none;
     background: var(--light-gray);
   }
@@ -25,7 +25,6 @@ export const Wrapper = styled.section`
     margin: 0 auto;
     hr {
       margin: 0 2rem;
-      width: 4px;
     }
   }
 `;

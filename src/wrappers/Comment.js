@@ -45,6 +45,14 @@ export const Wrapper = styled.section`
     background: var(--very-light-gray);
     border-radius: 0.5rem;
   }
+  .score-btn {
+    background: transparent;
+    border: none;
+    display: grid;
+  }
+  .score-btn:hover {
+    filter: contrast(20%);
+  }
   .score {
     color: var(--moderate-blue);
     font-weight: 500;
@@ -65,13 +73,13 @@ export const Wrapper = styled.section`
   }
   .reply-btn:hover img,
   .edit-btn:hover img {
-    opacity: 0.3;
+    filter: brightness(200%);
   }
   .delete-btn:hover {
     color: var(--pale-red);
   }
   .delete-btn:hover img {
-    opacity: 0.4;
+    filter: brightness(200%);
   }
   .you {
     background: var(--moderate-blue);
@@ -100,11 +108,30 @@ export const Wrapper = styled.section`
   .hide-mobile {
     display: none;
   }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+  textarea {
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 2px solid var(--light-gray);
+    min-height: 5rem;
+    padding: 0.5rem 1rem;
+    grid-area: a;
+    resize: none;
+  }
+  textarea:hover {
+    border-color: var(--moderate-blue);
+  }
   @media (width > 976px) {
     display: grid;
     grid-template-areas:
       "a b"
       "a c";
+    grid-template-columns: auto 1fr;
     gap: 0 1rem;
     padding: 1rem 2rem;
     .hide-mobile {
@@ -115,7 +142,7 @@ export const Wrapper = styled.section`
       justify-content: space-around;
       grid-area: a;
       align-self: start;
-      height: 75%;
+      min-height: 75%;
       width: 2.5rem;
     }
     .hide-desktop {

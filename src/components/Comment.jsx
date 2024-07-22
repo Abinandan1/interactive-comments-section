@@ -1,14 +1,37 @@
 import { useAppContext } from "../App";
 import { Wrapper } from "../wrappers/Comment";
+import Button from "./Button";
 
 const Comment = ({ comment }) => {
-  const { currentUser } = useAppContext();
+  const {
+    currentUser,
+    deleteComment,
+    editComment,
+    setReplyId,
+    setReplyUsername,
+    editId,
+    setEditId,
+    setIsModalOpen,
+    setDeleteId,
+    updateScore,
+  } = useAppContext();
   return (
     <Wrapper>
       <div className="score-container hide-mobile">
-        <img src="/images/icon-plus.svg" alt="" />
+        <button
+          className="score-btn"
+          onClick={() => updateScore(comment.id, "+")}
+        >
+          <img src="/images/icon-plus.svg" alt="" />
+        </button>
         <p className="score">{comment.score}</p>
-        <img src="/images/icon-minus.svg" alt="" />
+        <button
+          className="score-btn"
+          disabled={comment.score === 0}
+          onClick={() => updateScore(comment.id, "-")}
+        >
+          <img src="/images/icon-minus.svg" alt="" />
+        </button>
       </div>
       <header>
         <div className="info">
@@ -24,40 +47,87 @@ const Comment = ({ comment }) => {
         </div>
         {comment.user.username === currentUser.username ? (
           <div className="you-btns-container hide-mobile">
-            <button className="delete-btn">
+            <button
+              className="delete-btn"
+              onClick={() => {
+                setIsModalOpen(true);
+                setDeleteId(comment.id);
+              }}
+            >
               <img src="/images/icon-delete.svg" alt="" /> delete
             </button>
-            <button className="edit-btn">
+            <button onClick={() => setEditId(comment.id)} className="edit-btn">
               <img src="/images/icon-edit.svg" alt="" /> edit
             </button>
           </div>
         ) : (
-          <button className="reply-btn hide-mobile">
+          <button
+            onClick={() => {
+              setReplyId(comment.id);
+              setReplyUsername(comment.user.username);
+            }}
+            className="reply-btn hide-mobile"
+          >
             <img src="/images/icon-reply.svg" alt="" /> Reply
           </button>
         )}
       </header>
-      <p className="content">
-        {comment.replyingTo && <span>@{comment.replyingTo} </span>}
-        {comment.content}
-      </p>
+      {editId === comment.id ? (
+        <form onSubmit={editComment}>
+          <textarea
+            type="text"
+            id="comment"
+            name="comment"
+            defaultValue={comment.content}
+          />
+          <Button text="update" />
+        </form>
+      ) : (
+        <p className="content">
+          {comment.replyingTo && <span>@{comment.replyingTo} </span>}
+          {comment.content}
+        </p>
+      )}
       <footer className="hide-desktop">
         <div className="score-container">
-          <img src="/images/icon-plus.svg" alt="" />
+          <button
+            className="score-btn"
+            onClick={() => updateScore(comment.id, "+")}
+          >
+            <img src="/images/icon-plus.svg" alt="" />
+          </button>
           <p className="score">{comment.score}</p>
-          <img src="/images/icon-minus.svg" alt="" />
+          <button
+            className="score-btn"
+            disabled={comment.score === 0}
+            onClick={() => updateScore(comment.id, "-")}
+          >
+            <img src="/images/icon-minus.svg" alt="" />
+          </button>
         </div>
         {comment.user.username === currentUser.username ? (
           <div className="you-btns-container">
-            <button className="delete-btn">
+            <button
+              onClick={() => {
+                setIsModalOpen(true);
+                setDeleteId(comment.id);
+              }}
+              className="delete-btn"
+            >
               <img src="/images/icon-delete.svg" alt="" /> delete
             </button>
-            <button className="edit-btn">
+            <button onClick={() => setEditId(comment.id)} className="edit-btn">
               <img src="/images/icon-edit.svg" alt="" /> edit
             </button>
           </div>
         ) : (
-          <button className="reply-btn">
+          <button
+            onClick={() => {
+              setReplyId(comment.id);
+              setReplyUsername(comment.user.username);
+            }}
+            className="reply-btn"
+          >
             <img src="/images/icon-reply.svg" alt="" /> Reply
           </button>
         )}

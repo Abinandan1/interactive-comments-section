@@ -28,4 +28,5 @@ MAIN
 */
 main {
   background: var(--very-light-gray);
+  position: relative;
 }
