@@ -42,7 +42,7 @@ Users should be able to:
 
 - Mobile Modal
 
-![](./solution-images/abinandan-desktop-modal.png)
+![](./solution-images/abinandan-mobile-modal.png)
 
 ### Links
 
